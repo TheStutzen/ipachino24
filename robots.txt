@@ -1,0 +1,25 @@
+User-agent: Yandex
+
+Disallow: /send.php
+
+Sitemap: https://ipachino24.ru/sitemap.xml
+
+Host: http://ipachino24.ru
+
+User-agent: Googlebot
+
+Disallow: /send.php
+
+Sitemap: https://ipachino24.ru/sitemap.xml
+
+User-agent: Bingbot
+
+Disallow: /send.php
+
+Sitemap: https://ipachino24.ru/sitemap.xml
+
+User-agent: *
+
+Disallow: /send.php
+
+Sitemap: https://ipachino24.ru/sitemap.xml

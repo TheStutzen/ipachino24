@@ -1,0 +1,99 @@
+$(document).ready(function () {
+
+	const lazyLoadInstance = new LazyLoad({
+		elements_selector: ".lazy"
+	});
+
+	(function ($) {
+		$.fn.animated = function (inEffect) {
+			$(this).each(function () {
+				const ths = $(this);
+				ths.css("opacity", "0").addClass("animated").waypoint(function (dir) {
+					if (dir === "down") {
+						ths.addClass(inEffect).css("opacity", "1");
+					};
+				}, {
+					offset: "80%"
+				});
+
+			});
+		};
+	})(jQuery);
+
+	YaMapsShown = false;
+
+	$(window).scroll(function () {
+		$(".header").toggleClass("header__fixed", $(this).scrollTop() > 0);
+
+		const st = $(this).scrollTop();
+		$('.intro__bg').css({
+			'transform': 'translate(0, ' + st / 17 + '%'
+		});
+
+		const a = $('section');
+		a.each(function (d, e) {
+			const f = $(e).offset().top - 200;
+			const c = f + $(e).height();
+			const b = $(window).scrollTop();
+			const g = $(e).attr("id");
+			if (b > f && b < c) {
+				$('.menu__link.menu__link--active').removeClass('menu__link--active');
+				$('.menu__link[data-scroll="#' + g + '"]').addClass('menu__link--active');
+			}
+		});
+
+		if (!YaMapsShown) {
+			if ($(window).scrollTop() + $(window).height() > $(document).height() - 1000) {
+				showYaMaps();
+				YaMapsShown = true;
+			}
+		}
+	});
+
+	$(".intro__title, .intro__text-wrap, .intro__btn, .price__item, .accessories__img, .accessories__text").animated("fadeInUp");
+	$(".apple__product, .questions__title, .questions__text").animated("fadeIn");
+	$(".stages__item").animated("fadeInLeft");
+	$(".animate-lines").animated();
+
+	$('.menu__humburger').click(function () {
+		$(this).toggleClass('menu__humburger--open');
+		$('.mobile__menu').toggleClass('mobile__menu--active');
+		$('.header').toggleClass('mobile__menu--bg');
+		$('html').toggleClass('no-scroll');
+	});
+
+	$(".home .menu__link").click(function (a) {
+		a.preventDefault();
+		const c = $(this).attr("data-scroll"),
+			b = $(c).offset().top;
+		$("body,html").animate({
+			scrollTop: b
+		}, 1000);
+		$('.menu__humburger').removeClass('menu__humburger--open');
+		$('.mobile__menu').removeClass('mobile__menu--active');
+		$('.header').removeClass('mobile__menu--bg');
+		$('html').removeClass('no-scroll');
+	});
+
+	$(function () {
+		$('.input__phone').mask("+7 (999) 999-99-99");
+	});
+
+
+
+
+	function showYaMaps() {
+		const script = document.createElement("script");
+		script.type = "text/javascript";
+		script.src = "../../../../https@api-maps.yandex.ru/services/constructor/1.0/js/@um=constructor_253A684df9823aca3167d82d83cd3c1e5bcf7aa61eb938e80a72f5c3d0414be1926a&width=100_2525&height=400&lang=ru_RU&scroll=false";
+		document.querySelector(".map").appendChild(script);
+	}
+
+	const e = new Date;
+	document.querySelector(".date").innerHTML = e.getFullYear()
+
+	$("img, a").on("dragstart", function (e) {
+		e.preventDefault()
+	});
+
+})
